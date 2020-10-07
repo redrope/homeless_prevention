@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Emergency Financial Assistance Dashboard  {% endblock %}
+
+{% block content %}
+  <br><br>
+  <div class="container">
+      <h4>My Dashboard</h4>
+      <p class="text-primary">{{ c_query.first_name }} {{ c_query.last_name }}<br>
+         {{ c_query.address1}}<br>
+         {{ c_query.address2}}<br>
+         {{ c_query.city }} {{ c_query.state }} {{ c_query.zipcode }}<br>
+         Home Phone: <b>{{ c_query.home_phone}}</b> Mobile: <b>{{ c_query.mobile_phone }}</b>
+         {% if c_query.veteran %}
+            <br><b>"Veteran"</b>
+         {% endif %}
+      </p>
+  </div>
+<hr>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <h5>Assistance Information</h5>
+
+      <p class="text-primary">
+      Assistance Requested:<br>
+      <b>{{ hp_query.assistance_type }}</b><br><br>
+      Housing Request for: <b>{{ hp_query.housing_type }}</b><br>
+      </p>
+      <p class="text-primary">Number of people living in the house:<br>
+        Adults: <b>[ {{hp_query.adults_num}} ]</b>
+        Children: <b>[ {{hp_query.kids_num}} ]</b>
+        Edlerly: <b>[ {{hp_query.elderly_num}} ]</b>
+      </p>
+
+    </div>
+    <div class="col-sm">
+      <h5>Landlord & Utilities</h5>
+      <p class="text-primary">
+      Landlord Contact: [         ]<br>
+      Phone: [                    ]<br>
+      </p>
+    </div>
+    <div class="col-sm">
+      <h5>Documents Submitted</h5>
+      <p class="text-primary">
+      [List of Documents          ]
+      </p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

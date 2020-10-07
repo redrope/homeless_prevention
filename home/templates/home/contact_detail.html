@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Contact Details  {% endblock %}
+
+{% block content %}
+<div class="container">
+<br><br>
+<h5>Contact Details</h5>
+
+    <p class="text-primary">
+       {{ object.first_name }} {{ object.middle_initial }} {{ object.last_name }}<br>
+       {{ object.address1 }}
+       {{ object.address2 }}<br>
+       {{ object.city}}, {{ object.state }} {{ object.zipcode }}<br>
+    </p>
+    <p class="text-primary">Home Phone: {{ object.home_phone }}<br>
+       Mobile Phone: {{ object.mobile_phone }}<br>
+       Email: {{ object.email }}<br>
+       HP Username: {{ object.username }}
+    </p>
+<hr>
+<a href="/home/contact_update/{{ object.id }}/"><b>[Edit Record]</b></a>
+<a href="/home/dashboard"><b>[Go to Dashboard]</b></a>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Contact List  {% endblock %}
+
+{% block content %}
+
+<ul>
+    <!-- Iterate over object_list -->
+    {% for object in object_list %}
+    <!-- Display Objects -->
+      <li>
+         <h5>{{ object.first_name }} {{ object.last_name }}</h5>
+         Home Phone: {{ object.home_phone }}<br>
+      </li>
+      <h6><small><a href="/home/contact_update/{{ object.id }}/">[Update Record]</a>
+      <a href="/home/contact_delete/{{ object.id }}/">[Delete Record]</a></small></h6>
+      <hr/>
+    <!-- If objet_list is empty  -->
+    {% empty %}
+      <li>No Contact Information yet.</li>
+      <br><a href="../">Add Record</a>
+    {% endfor %}
+</ul>
+
+{% endblock %}

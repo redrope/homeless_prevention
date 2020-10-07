@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Emergency Financial Assistance  {% endblock %}
+
+{% block content %}
+  <div class="container">
+    <br>
+    <h4>Emergency Financial Assistance (English/Spanish)</h4>
+    <p type="lead">The purpose of this program is to provide financial assistance to low income renters/homeowners in Maricopa County faced with a financial crisis and threat of eviction. If you are facing a temporary financial hardship <b>Society of St. Vincent de Paul</b> may be able to help.
+    </p>
+    <h6>Steps you need to take to request assistance.</h6>
+    <ol type=1>
+      <li>Gather documents – ID, lease, pay loss/reduction, utility bills (see required document list)</li>
+      <li>Make sure your lease or mortgage documents have your signature and the landlord’s signature</li>
+      <li>Scan or take photos of documentation</li>
+      <li>Calculate your total household income</li>
+      <li>Get addresses and phone number of your landlord or housing company</li>
+      <li><b>Make sure the person named on the lease is the person listed on the application</b></li>
+    </ol>
+    <h6>Start your Assistance Application</h6>
+
+    <p>Before you click the Start Application button below.  Please have the following information ready in a digital format (<i>see FAQ’s for digital upload information and full list of documentation</i>):</p>
+
+    <h6><b>Documents and information, you must provide for the application to be considered</b></h6>
+    <p>See the FAQ document for more information on types of documents that can be submitted.</p>
+
+    <h6>You will need to upload a scanned image or photo image of each of the following:</h6>
+    <ul>
+      <li><b>Identification for the applicant:</b>  Driver's license, State issued ID, Social Security Card, Voter Registration. This ID must be the person on the rental agreement.
+      <li><b>Hardship supporting documentation:</b> Employment termination letter or employer letter stating wage reduction.
+      <li><b>Rent or Mortgage Lease agreement:</b> Current unaltered lease or mortgage agreement with signatures.
+      <li><b>Utility bills:</b> Current utility bills with account number, address, and amount owed.
+      <li><b>Optional document: Proof of citizenship</b>
+    </ul>
+    <h6>Other information you will need for the Application</h6>
+    <ul>
+      <li>Landlord’s name, address and telephone number
+      <li>Household gross income for the last 30 days
+      <li>A username and password that is 8 letters long and includes capital letters and numbers
+    </ul>
+    <h6><b>To be considered for financial assistance complete an online application.</b></h6>
+    <p>
+    <a href="{% url 'home:contact_create' %}" type="button" class="btn btn-success" role="button">Start Application</a>
+    <a href="{% url 'home:dashboard' %}" type="button" class="btn btn-secondary" role="button">Go to Dashboard</a>
+    </p>
+    <br><br><br><br>
+
+  </div>
+
+{% endblock %}

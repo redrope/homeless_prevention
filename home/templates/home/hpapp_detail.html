@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Application Information  {% endblock %}
+
+{% block content %}
+<div class="container">
+        <br><br>
+        <h5>Application Details</h5>
+        <p class="text-primary">
+            Application details for: {{ object.contact }}<br>
+            Type of assistance Requested: {{ object.assistance_type }} <br>
+            {% if object.primary_client %}
+               Are you the Primary Client?: YES
+            {% else %}
+              Are you the Primary Client?: NO
+            {% endif %}
+        </p>
+        <hr>
+        <p class="text-primary">
+        <br>Monthly Household Income: ${{ object.hh_income }}<br>
+        Income Type: {{ object.income_type }}<br>
+        Education: {{ object.highest_grade_level }}<br>
+        Housing Assistance Type: {{ object.housing_type }}<br>
+        Number of Adults living in the home: [{{ object.adults_num }}]<br>
+        Number of Children living in the home: [{{ object.kids_num }}]<br>
+        Number of Elderly Adults (65 and over) [{{ object.elderly }}]<br>
+        </p>
+        <hr>
+        <p class="text-primary">
+        Describe the kind of crisis you are experiencing:<br>
+        <ul>
+            {% if object.crisis_job_related %}
+                <li>Unemployment/ salary reduction/job or wage instability</li>
+            {% elif object.crisis_health_problems %}
+                <li>Health problems</li>
+            {% elif object.crisis_expenses %}
+                <li>Unexpected expenses</li>
+        {% endif %}
+        </ul>
+        </p>
+        <p class="text-primary">
+        In your own, words explain the situation or crisis that has to lead you to seek assistance:<br>
+        {{ object.crisis_other }}
+        </p>
+        <hr>
+        <p class="text-primary">
+        Listed Disabilities:
+        <ul>
+            {% if object.disability_deaf %}
+                <li>Deaf/Hearing impaired</li>
+            {% elif object.disability_mobility %}
+                <li>Mobility</li>
+            {% elif object.disability_speech %}
+                <li>Speech/Language
+            {% elif object.disability_learning %}
+                <li>Learning Disability</li>
+            {% elif object.disability_visual %}
+                <li>Blind/Visual Disability</li>
+            {% elif object.disability_health %}
+                <li>Chronic Health</li>
+            {% elif object.disability_housebound %}
+                <li>Housebound</li>
+            {% endif %}
+        </ul>
+        </p>
+        <p class="text-primary">
+        Explain any other Disability:<br>
+        {{ object.disability_other }}
+        </p>
+</div>
+
+{% endblock %}

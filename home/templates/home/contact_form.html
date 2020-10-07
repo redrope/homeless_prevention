@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Emergency Financial Assistance  {% endblock %}
+
+{% block content %}
+<div class="container">
+    <br><br>
+    <h4>Please enter your Contact Information</h4>
+    <hr>
+          <form method="POST" enctype="multipart/form-data">
+
+              <!-- Security token -->
+              {% csrf_token %}
+
+              <!-- Using the formset -->
+              <table>{{ form.as_table }}</table>
+
+              <input type="submit" value="Submit">
+          </form>
+</div>
+<br><br>
+{% endblock %}
