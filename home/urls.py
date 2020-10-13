@@ -1,7 +1,8 @@
 from django.urls import path, include
 from . import views
 from django.contrib.auth.decorators import login_required
-from .views import DashboardView, ContactModelCreate, ContactModelList, ContactModelDetail, ContactModelUpdate, ContactModelDelete, HPAPPCreate, HPAPPDetail, HPAPPUpdate
+from .views import DashboardView, ContactModelCreate, ContactModelList, ContactModelDetail, ContactModelUpdate, \
+                   ContactModelDelete, HPAPPCreate, HPAPPDetail, HPAPPUpdate
 
 
 app_name = 'home'

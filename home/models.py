@@ -42,10 +42,9 @@ class HPAPP(models.Model):
 
         ASSISTANCE_REQUESTED = [('Rent/Mortgage','Rent/Mortgage'),('Rent/Mortgage & Utilities','Rent/Mortgage & Utilities')]
 
-
-
         #fields
         contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
+        username = models.ForeignKey(User, on_delete=models.CASCADE)
         SSN = models.CharField(max_length=200,blank=True)
         race = models.CharField(max_length=200, choices=RACE)
         highest_grade_level = models.CharField(max_length=200, choices=EDUCATION_CHOICES)
@@ -59,6 +58,7 @@ class HPAPP(models.Model):
         disability_other = models.TextField(blank=True)
         date_applied = models.DateTimeField(auto_now_add=True)
         date_submitted = models.DateField(null=True, blank=True)
+        updated = models.DateTimeField(auto_now=True)
         primary_client = models.BooleanField()
         assistance_type = models.CharField(max_length=200, choices=ASSISTANCE_REQUESTED)
         housing_type = models.CharField(max_length=200, choices=HOUSING_TYPE)
@@ -77,3 +77,45 @@ class HPAPP(models.Model):
 
         def __str__(self):
             return f'{self.contact} {self.assistance_type}'
+
+class Housing(models.Model):
+        contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
+        username = models.ForeignKey(User, on_delete=models.CASCADE)
+        ll_or_mortage_co = models.CharField(max_length=250)
+        contact_person = models.CharField(max_length=200)
+        contact_phone = models.CharField(max_length=20)
+        mailing_address1 = models.CharField(max_length=250)
+        mailing_address2 = models.CharField(max_length=250)
+        city = models.CharField(max_length=200)
+        state = models.CharField(max_length=10, default='AZ')
+        zipcode = models.CharField(max_length=20)
+        monthly_payment_amount = models.DecimalField(default=0.00, max_digits=6, decimal_places=2)
+        current_amount_due = models.DecimalField(default=0.00, max_digits=6, decimal_places=2)
+
+        def get_absolute_url(self):
+            return reverse('home:housing_detail', args=[self.id])
+
+        def __str__(self):
+            return f'{self.ll_or_mortage_co} {self.contact_person} {self.contact_phone}'
+
+
+def user_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return 'user_{0}/{1}'.format(instance.user.id, filename)
+
+class Utilities(models.Model):
+        UTILITY_TYPE = [('water','Water'), ('electric', 'Electric'), ('gas', 'Gas')]
+        UTILITY_PROVIDER = [('SRP', 'SRP'), ('APS', 'APS'), ('Southwest Gas', 'Southwest Gas'), ('City of Phoenix', 'City of Phoenix'), ('City of Mesa', 'City of Mesa'),
+                            ('City of Peoria', 'City of Peoria'), ('City of Tempe', 'City of Tempe'), ('City of Glendale', 'City of Glendale'), ('City of Chandler', 'City of Chandler'),
+                            ('City of Goodyear', 'City of Goodyear'), ('City of Buckeye', 'City of Buckeye'), ('City of Scottsdale', 'City of Scottsdale'), ('Epcor', 'Epcor'), ('Liberty', 'Liberty')
+                            ]
+
+        contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
+        username = models.ForeignKey(User, on_delete=models.CASCADE)
+        utility_provider = models.CharField(max_length=100, choices=UTILITY_PROVIDER)
+        utility_type = models.CharField(max_length=100, choices=UTILITY_TYPE)
+        account_no = models.CharField(max_length=200)
+        name_on_acct = models.CharField(max_length=200)
+        total_amount_due = models.DecimalField(default=0.00, max_digits=6, decimal_places=2)
+        statement = models.FileField(upload_to=user_directory_path)
+

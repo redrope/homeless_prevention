@@ -6,14 +6,15 @@
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
-<br><br>
+<div class="container">
+  <br><br>
 <h4>{% trans "Sign In" %}</h4>
 
 {% get_providers as socialaccount_providers %}
 
 {% if socialaccount_providers %}
     <p>{% blocktrans with site.name as site_name %}Please sign in with one
-    of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
+    of your existing third party accounts.<br> Or, <a href="{{ signup_url }}">sign up</a>
     for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 
     <div class="socialaccount_ballot">
@@ -44,5 +45,5 @@
   <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
   <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
 </form>
-
+</div>
 {% endblock %}
