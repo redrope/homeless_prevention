@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
+from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
@@ -46,6 +47,10 @@ class DashboardView(ListView):
         return Contact.objects.filter(username=self.request.user.id)
 
     #return context
+
+class FAQView(TemplateView):
+        template_name = 'home/hpapp_faq.html'
+
 
 #@login_required used in urls.py for CBV
 class ContactModelCreate(CreateView):
