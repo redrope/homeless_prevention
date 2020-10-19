@@ -1,8 +1,9 @@
 from django.urls import path, include
 from . import views
 from django.contrib.auth.decorators import login_required
-from .views import DashboardView, ContactModelCreate, ContactModelList, ContactModelDetail, ContactModelUpdate, \
-                   ContactModelDelete, HPAPPCreate, HPAPPDetail, HPAPPUpdate, FAQView
+from .views import DashboardView, StartAppView, ContactModelCreate, ContactModelList, ContactModelDetail, ContactModelUpdate, \
+                   ContactModelDelete, HPAPPCreate, HPAPPDetail, HPAPPUpdate, FAQView, HousingModelCreate, HousingModelDetail, \
+                   HousingModelUpdate, HousingModelDelete
 
 
 app_name = 'home'
@@ -10,6 +11,7 @@ urlpatterns = [
     path('', views.index, name = 'index' ),
     #path('dashboard/', login_required(DashboardView.as_view()), name= 'dashboard'),
     path('dashboard/', views.dashboard, name = 'dashboard'),
+    path('startapp/', StartAppView.as_view(), name='startapp'),
     path('contact_create/', login_required(ContactModelCreate.as_view()), name='contact_create' ),
     path('contact_list/', login_required(ContactModelList.as_view()), name='contact_list' ),
     path('contact_detail/<pk>/', login_required(ContactModelDetail.as_view()), name='contact_detail'),
@@ -19,4 +21,8 @@ urlpatterns = [
     path('hpapp_detail/<pk>/', login_required(HPAPPDetail.as_view()), name='hpapp_detail'),
     path('hpapp_update/<pk>/', login_required(HPAPPUpdate.as_view()), name='hpapp_update'),
     path('hpapp_faq/', FAQView.as_view(), name='faq'),
+    path('housing_create/', login_required(HousingModelCreate.as_view()), name='housing_create' ),
+    path('housing_detail/<pk>/', login_required(HousingModelDetail.as_view()), name='housing_detail' ),
+    path('housing_update/<pk>/', login_required(HousingModelUpdate.as_view()), name='housing_update' ),
+    path('housing_delete/<pk>/', login_required(HousingModelDelete.as_view()), name='housing_delete' ),
 ]

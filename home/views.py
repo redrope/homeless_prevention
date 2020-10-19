@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from .models import Contact, HPAPP
+from .models import Contact, HPAPP, Housing, Utilities
 from .forms import ClientForm, HPAPPForm
 
 class OwnObjectsMixin():
@@ -25,6 +25,8 @@ class OwnObjectsMixin():
 def index(request):
     return render(request, 'home/index.html', {})
 
+class StartAppView(TemplateView):
+    template_name = 'home/startapp.html'
 
 @login_required
 def dashboard(request): #TO DO If statement to bypass Dashboard for new user
@@ -204,3 +206,61 @@ class HPAPPUpdate(UpdateView):
         owner = Contact.objects.get(username=self.request.user)
         return qs.filter(contact=owner)
         #return self.model.objects.filter(contact=owner) #return object owned by logged in User
+
+class HousingModelCreate(CreateView):
+    #added reverse URL to TestModel in models.py
+    #TODO Add labels to field names on the form
+    model = Housing
+    fields = [
+        'll_or_mortage_co',
+        'contact_person',
+        'contact_phone',
+        'mailing_address1',
+        'mailing_address2',
+        'city',
+        'state',
+        'zipcode',
+        'monthly_payment_amount',
+        'current_amount_due',
+    ]
+
+    def form_valid(self, form):
+        #assign Contact username with current logged in User
+        qs = Contact.objects.get(username=self.request.user)
+        form.instance.contact = qs['id']
+        form.instance.username = self.request.user #TODO Create filter to get object from Contact Model & User Model
+
+        return super(HousingModelCreate, self).form_valid(form)
+
+
+class HousingModelDetail(DetailView):
+    model = Housing
+
+    def get_queryset(self):
+        return self.model.objects.filter(username=self.request.user)
+
+class HousingModelList(ListView):
+    model = Housing
+
+    def get_queryset(self):
+        return self.model.objects.filter(username=self.request.user)
+
+class HousingModelUpdate(UpdateView):
+    model = Housing
+
+    #Specify the fields
+    #fields = []
+
+
+    #can specify success URL to redirect after successful Update
+    #success_url = "/"
+    #redirect added to Contact Model in models.py
+
+class HousingModelDelete(DeleteView):
+    model = Housing
+
+    def get_queryset(self):
+        return self.model.objects.filter(username=self.request.user)
+
+    #can specify success URL to redirect after successful Update
+    success_url = reverse_lazy('home:housing_list')

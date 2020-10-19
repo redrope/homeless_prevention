@@ -1,5 +1,5 @@
 from django import forms
-from .models import Contact, HPAPP
+from .models import Contact, HPAPP, Housing, Utilities
 
 #Start of ClientForm
 class ClientForm(forms.ModelForm):
@@ -58,7 +58,7 @@ class HPAPPForm(forms.ModelForm):
                 "crisis_job_related",
                 "crisis_health_problems",
                 "crisis_expenses",
-    ]
+            ]
 
             labels = {
                 'housing_type':'Type of Housing Assistance',
@@ -72,4 +72,30 @@ class HPAPPForm(forms.ModelForm):
                 'kids_num':'Number of children (17 and younger) living in the house.',
                 'elderly_num':'Number of adults over age 65',
 
+            }
+
+
+class HousingForm(forms.ModelForm):
+        class Meta:
+            model = Housing
+
+            fields = [
+                'll_or_mortage_co',
+                'contact_person',
+                'contact_phone',
+                'mailing_address1',
+                'mailing_address2',
+                'city',
+                'state',
+                'zipcode',
+                'monthly_payment_amount',
+                'current_amount_due',
+            ]
+
+            labels = {
+                 'll_or_mortage_co': 'Landlord or Mortgage Company',
+                 'mailing_address1': 'Mailing Address',
+                 'mailing_address2': 'Suite Number',
+                 'monthly_payment_amount': 'Monthly Payment Amount',
+                 'current_amount_due': 'Current Amount Due',
             }

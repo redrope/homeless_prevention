@@ -67,10 +67,12 @@ class HPAPP(models.Model):
         elderly_num = models.IntegerField()
         income_type = models.CharField(max_length=200, choices=INCOME_TYPE)
         hh_income = models.DecimalField(max_digits=8, decimal_places=2)
+        #TODO Add Fields to upload paystubs or pay statements
         crisis_other = models.TextField()
         crisis_job_related = models.BooleanField()
         crisis_health_problems = models.BooleanField()
         crisis_expenses = models.BooleanField()
+        #TODO Add Field to upload Crisis Doc such as Umemployment, etc.
 
         def get_absolute_url(self):
             return reverse('home:hpapp_detail', args=[self.id])
@@ -118,4 +120,6 @@ class Utilities(models.Model):
         name_on_acct = models.CharField(max_length=200)
         total_amount_due = models.DecimalField(default=0.00, max_digits=6, decimal_places=2)
         statement = models.FileField(upload_to=user_directory_path)
+
+#TODO Add Model 'Documents' to upload all necessary documents
 
