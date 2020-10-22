@@ -28,6 +28,7 @@ class Contact(models.Model):
         return f'{self.first_name} {self.last_name} - {self.username}'
 
     #Set the redirect after an Update (POST)
+    
     def get_absolute_url(self):
         return reverse('home:contact_detail', args=[self.id])
 
@@ -82,7 +83,7 @@ class HPAPP(models.Model):
 
 class Housing(models.Model):
         contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
-        username = models.ForeignKey(User, on_delete=models.CASCADE)
+        username = models.ForeignKey(User, on_delete=models.CASCADE, unique = True,)
         ll_or_mortage_co = models.CharField(max_length=250)
         contact_person = models.CharField(max_length=200)
         contact_phone = models.CharField(max_length=20)
@@ -113,7 +114,7 @@ class Utilities(models.Model):
                             ]
 
         contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
-        username = models.ForeignKey(User, on_delete=models.CASCADE)
+        username = models.ForeignKey(User, on_delete=models.CASCADE,unique = True,)
         utility_provider = models.CharField(max_length=100, choices=UTILITY_PROVIDER)
         utility_type = models.CharField(max_length=100, choices=UTILITY_TYPE)
         account_no = models.CharField(max_length=200)

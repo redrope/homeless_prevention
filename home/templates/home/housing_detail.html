@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Contact List  {% endblock %}
+
+{% block content %}
+
+<br><br>
+<h5>House Details</h5>
+
+    <p class="text-primary">
+       Contact:{{ object.contact }}<br>
+       middle_initial:{{ object.middle_initial }} <br>
+       mailing_address1:{{ object.mailing_address1 }}<br>
+       mailing_address2:{{ object.mailing_address2 }}<br>
+       city:{{ object.city}} <br>
+       state:{{ object.state }} <br>
+       zipcode:{{ object.zipcode }}<br>
+    </p>    
+<hr>
+
+{% endblock %}

@@ -60,7 +60,10 @@ class ContactModelCreate(CreateView):
     model = Contact
 
     fields = [
-        "first_name", "middle_initial", "last_name",
+        # "username",
+        "first_name", 
+        "middle_initial", 
+        "last_name",
         "home_phone",
         "mobile_phone",
         "email",
@@ -71,12 +74,12 @@ class ContactModelCreate(CreateView):
         "zipcode",
         "DOB",
         "veteran",
-
     ]
 
     def form_valid(self, form):
         #assign Contact username with current logged in User
         form.instance.username = self.request.user
+        # form.save()
 
         return super(ContactModelCreate, self).form_valid(form)
 
@@ -114,7 +117,6 @@ class ContactModelUpdate(UpdateView):
         "zipcode",
         "DOB",
         "veteran",
-
     ]
     #can specify success URL to redirect after successful Update
     #success_url = "/"
@@ -161,7 +163,7 @@ class HPAPPCreate(CreateView):
     def form_valid(self, form):
         #assign Contact username with current logged in User
         form.instance.contact = Contact.objects.get(username=self.request.user)
-        #form.instance.contact = self.request.user
+        form.instance.username = self.request.user
 
         return super(HPAPPCreate, self).form_valid(form)
 
@@ -171,7 +173,6 @@ class HPAPPDetail(DetailView):
     def get_queryset(self):
         owner = Contact.objects.get(username=self.request.user)
         return self.model.objects.filter(contact=owner) #return object owned by logged in User
-
 
 class HPAPPUpdate(UpdateView):
     model = HPAPP
@@ -227,7 +228,8 @@ class HousingModelCreate(CreateView):
     def form_valid(self, form):
         #assign Contact username with current logged in User
         qs = Contact.objects.get(username=self.request.user)
-        form.instance.contact = qs['id']
+        # form.instance.contact = qs['id']
+        form.instance.contact = Contact.objects.get(username=self.request.user)
         form.instance.username = self.request.user #TODO Create filter to get object from Contact Model & User Model
 
         return super(HousingModelCreate, self).form_valid(form)
@@ -238,6 +240,13 @@ class HousingModelDetail(DetailView):
 
     def get_queryset(self):
         return self.model.objects.filter(username=self.request.user)
+
+# class HPAPPDetail(DetailView):
+#     model = HPAPP
+
+#     def get_queryset(self):
+#         owner = Contact.objects.get(username=self.request.user)
+#         return self.model.objects.filter(contact=owner) #return object owned by logged in User
 
 class HousingModelList(ListView):
     model = Housing
