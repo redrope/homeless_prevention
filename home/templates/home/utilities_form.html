@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Utilites Information  {% endblock %}
+
+{% block content %}
+<br>
+<h4>Utilites Information (Landlord or Mortgage)</h4>
+<hr>
+<div class="container">
+    <form method="POST" enctype="multipart/form-data">
+
+        <!-- Security token -->
+        {% csrf_token %}
+
+        <!-- Using the formset -->
+        <table>{{ form.as_table }}</table>
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+<br><br>
+{% endblock %}

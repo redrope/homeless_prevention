@@ -273,3 +273,27 @@ class HousingModelDelete(DeleteView):
 
     #can specify success URL to redirect after successful Update
     success_url = reverse_lazy('home:housing_list')
+
+
+class UtilitiesModelCreate(CreateView):
+    model = Utilities
+    fields = [
+    'utility_provider',
+    'utility_type',
+    'account_no',
+    'name_on_acct',
+    'total_amount_due',
+    'statement',
+    ]
+
+    def form_valid(self, form):
+        form.instance.contact = Contact.objects.get(username = self.request.user)
+        form.instance.username = User.objects.get(username = self.request.user)
+        return super(UtilitiesModelCreate,self).form_valid(form)
+
+
+class UtilitiesModelDetail(DetailView):
+    model = Utilities
+
+    def get_queryset(self):
+        return self.model.objects.filter(username=self.request.user)

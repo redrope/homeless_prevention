@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Utilites Information  {% endblock %}
+
+{% block content %}
+<br>
+<h4>Utilites Information (Landlord or Mortgage)</h4>
+<hr>
+<div class="container">
+    <div class="text-primary">    
+       <p>utility_provider:</p><p style="padding-left:100px; color:black;">{{ object.utility_provider }}</p><br>
+       <p>utility_type    :</p><p style="padding-left:100px; color:black;">{{ object.utility_type }} </p><br>
+       <p>account_no      :</p><p style="padding-left:100px; color:black;">{{ object.account_no }}</p><br>
+       <p>name_on_acct    :</p><p style="padding-left:100px; color:black;">{{ object.name_on_acct }}</p><br>
+       <p>total_amount_due:</p><p style="padding-left:100px; color:black;">{{ object.total_amount_due }}</p><br>
+       <p>statement       :</p><p style="padding-left:100px; color:black;">{{ object.statement }}</p><br> 
+    </div>
+</div>
+<br><br>
+{% endblock %}

@@ -3,7 +3,7 @@ from . import views
 from django.contrib.auth.decorators import login_required
 from .views import DashboardView, StartAppView, ContactModelCreate, ContactModelList, ContactModelDetail, ContactModelUpdate, \
                    ContactModelDelete, HPAPPCreate, HPAPPDetail, HPAPPUpdate, FAQView, HousingModelCreate, HousingModelDetail, \
-                   HousingModelUpdate, HousingModelDelete
+                   HousingModelUpdate, HousingModelDelete,UtilitiesModelCreate, UtilitiesModelDetail
 
 
 app_name = 'home'
@@ -25,4 +25,6 @@ urlpatterns = [
     path('housing_detail/<pk>/', login_required(HousingModelDetail.as_view()), name='housing_detail' ),
     path('housing_update/<pk>/', login_required(HousingModelUpdate.as_view()), name='housing_update' ),
     path('housing_delete/<pk>/', login_required(HousingModelDelete.as_view()), name='housing_delete' ),
+    path('utils_create/', login_required(UtilitiesModelCreate.as_view()), name = 'utils_create'),
+    path('utils_detail/<pk>/', login_required(UtilitiesModelDetail.as_view()), name = 'utils_detail')
 ]

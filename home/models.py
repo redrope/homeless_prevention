@@ -104,7 +104,7 @@ class Housing(models.Model):
 
 def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-    return 'user_{0}/{1}'.format(instance.user.id, filename)
+    return 'user_{0}/{1}'.format(instance.username.id, filename)
 
 class Utilities(models.Model):
         UTILITY_TYPE = [('water','Water'), ('electric', 'Electric'), ('gas', 'Gas')]
@@ -114,13 +114,19 @@ class Utilities(models.Model):
                             ]
 
         contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
-        username = models.ForeignKey(User, on_delete=models.CASCADE)
+        username = models.ForeignKey(User, on_delete=models.CASCADE)                   
         utility_provider = models.CharField(max_length=100, choices=UTILITY_PROVIDER)
         utility_type = models.CharField(max_length=100, choices=UTILITY_TYPE)
         account_no = models.CharField(max_length=200)
         name_on_acct = models.CharField(max_length=200)
         total_amount_due = models.DecimalField(default=0.00, max_digits=6, decimal_places=2)
         statement = models.FileField(upload_to=user_directory_path)
+
+        def get_absolute_url(self):
+            return reverse('home:utils_detail', args=[self.id])
+
+        def __str__(self):
+            return f'{self.utility_provider} {self.account_no} {self.contact_phone}'
 
 #TODO Add Model 'Documents' to upload all necessary documents
 
