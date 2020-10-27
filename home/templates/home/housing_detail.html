@@ -4,19 +4,22 @@
 {% block title %} Contact List  {% endblock %}
 
 {% block content %}
-
+<div class="container">
 <br><br>
 <h5>House Details</h5>
 
     <p class="text-primary">
-       Contact:{{ object.contact }}<br>
-       middle_initial:{{ object.middle_initial }} <br>
-       mailing_address1:{{ object.mailing_address1 }}<br>
-       mailing_address2:{{ object.mailing_address2 }}<br>
-       city:{{ object.city}} <br>
-       state:{{ object.state }} <br>
-       zipcode:{{ object.zipcode }}<br>
+       Landlord/Mortgage Co. : {{ object.ll_or_mortage_co }} <br>
+       Contact Person: {{ object.contact }}<br>
+       Middle Initial: {{ object.middle_initial }} <br>
+       Mailing Address: {{ object.mailing_address1 }}<br>
+       Building or Suite No: {{ object.mailing_address2 }}<br>
+       City: {{ object.city}} <br>
+       State: {{ object.state }} <br>
+       Zipcode: {{ object.zipcode }}<br>
     </p>    
 <hr>
-
+    <a class="btn btn-outline-success btn-sm" role="button" href="/home/housing_update/{{ object.id }}/">Edit Record</a>
+    <a class="btn btn-success btn-sm" role="button" href="/home/startapp/">Accept and Continue</a>
+</div>
 {% endblock %}
