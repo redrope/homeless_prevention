@@ -20,7 +20,12 @@
        HP Username: {{ object.username }}
     </p>
 <hr>
-<a href="/home/contact_update/{{ object.id }}/"><b>[Edit Record]</b></a>
-<a href="/home/startapp/"><b>[Accept and Continue]</b></a>
+
+    <a class="btn btn-outline-success btn-sm" role="button" href="/home/contact_update/{{ object.id }}/">Edit Record</a>
+    <a class="btn btn-success btn-sm" role="button" href="/home/startapp/">Accept and Continue</a>
+    <!--
+    <a href="/home/contact_update/{{ object.id }}/"><b>[Edit Record]</b></a>
+    <a href="/home/startapp/"><b>[Accept and Continue]</b></a>
+    -->
 </div>
 {% endblock %}

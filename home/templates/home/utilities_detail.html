@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %} Utilites Information  {% endblock %}
+{% block title %} Utilities Information  {% endblock %}
 
 {% block content %}
 <br>
-<h4>Utilites Information (Landlord or Mortgage)</h4>
+<h4>Utilities Information </h4>
 <hr>
 <div class="container">
     <div class="text-primary">    
@@ -16,6 +16,8 @@
        <p>total_amount_due:</p><p style="padding-left:100px; color:black;">{{ object.total_amount_due }}</p><br>
        <p>statement       :</p><p style="padding-left:100px; color:black;">{{ object.statement }}</p><br> 
     </div>
+    <a class="btn btn-primary btn-sm" role="button"  href="/home/utils_update/{{ object.id }}">Edit Record</a>
+    <a class="btn btn-success btn-sm" role="button"  href="/home/startapp/">Accept and Continue</a>
 </div>
 <br><br>
 {% endblock %}

@@ -18,7 +18,7 @@ class OwnObjectsMixin():
      """
      def get_queryset(self):
          username = self.request.user
-         return super(OwnObjectsMixin, self).get_queryset().filter(user=username)
+         return super(OwnObjectsMixin, self).get_queryset().filter(username=username)
 
 
 # Create your views here.
@@ -26,7 +26,51 @@ def index(request):
     return render(request, 'home/index.html', {})
 
 class StartAppView(TemplateView):
+    context_object_name = 'startapp_list'
     template_name = 'home/startapp.html'
+    title = 'some title'
+
+    def get_context_data(self, **kwargs):
+        context = super(StartAppView, self).get_context_data(**kwargs)
+        if Contact.objects.filter(username=self.request.user).exists():
+            context['c_info'] = Contact.objects.get(username=self.request.user)
+            context['contact_exists'] = True
+        else:
+            context['contact_exists'] = False
+
+        if HPAPP.objects.filter(username=self.request.user).exists():
+            context['hpapp_info'] = HPAPP.objects.get(username=self.request.user)
+            context['hpapp_exists'] = True
+        else:
+            context['hpapp_exists'] = False
+
+        if Housing.objects.filter(username=self.request.user).exists():
+            context['housing_info'] = Housing.objects.get(username=self.request.user)
+            context['housing_exists'] = True
+        else:
+            context['housing_exists'] = False
+
+        if Utilities.objects.filter(username=self.request.user).exists():
+            context['utils_exists'] = True
+        else:
+            context['utils_exists'] = False
+
+        return context
+
+
+"""
+    def get_context_data(self, *args, **kwargs):
+        context = super(StartAppView, self).get_context_data(*args, **kwargs)
+        context['name'] = 'Gryffindor'
+
+
+        #check if Contact Object exists for User
+        if Contact.objects.filter(username=self.request.user).exists():
+            qs = Contact.objects.filter(username=self.request.user)
+            context['username'] = qs.username
+            print(qs.username)
+"""
+
 
 @login_required
 def dashboard(request): #TO DO If statement to bypass Dashboard for new user
@@ -84,7 +128,7 @@ class ContactModelCreate(CreateView):
         return super(ContactModelCreate, self).form_valid(form)
 
 #@login_required
-class ContactModelList(ListView):
+class ContactModelList(OwnObjectsMixin, ListView):
     model = Contact
 
     def get_queryset(self):
@@ -174,7 +218,7 @@ class HPAPPDetail(DetailView):
         owner = Contact.objects.get(username=self.request.user)
         return self.model.objects.filter(contact=owner) #return object owned by logged in User
 
-class HPAPPUpdate(UpdateView):
+class HPAPPUpdate(OwnObjectsMixin, UpdateView):
     model = HPAPP
 
     fields = [
@@ -202,10 +246,11 @@ class HPAPPUpdate(UpdateView):
 
         ]
 
-    def get_queryset(HPAPPUpdate, self):
-        qs = super(HPAPPUpdate, self).get_queryset(self)
-        owner = Contact.objects.get(username=self.request.user)
-        return qs.filter(contact=owner)
+    #def get_queryset(HPAPPUpdate, self):
+        #qs = super(HPAPPUpdate, self).get_queryset(self)
+        #owner = HPAPP.objects.get(username=self.request.user)
+        #return qs.filter(contact=owner)
+        #return HPAPP.objects.filter(username=self.request.user)
         #return self.model.objects.filter(contact=owner) #return object owned by logged in User
 
 class HousingModelCreate(CreateView):
@@ -297,3 +342,18 @@ class UtilitiesModelDetail(DetailView):
 
     def get_queryset(self):
         return self.model.objects.filter(username=self.request.user)
+
+class UtilitiesModelUpdate(OwnObjectsMixin, UpdateView):
+    model = Utilities
+    fields = [
+        'utility_provider',
+        'utility_type',
+        'account_no',
+        'name_on_acct',
+        'total_amount_due',
+        'statement',
+    ]
+    success_url = reverse_lazy('home:utils_list')
+
+class UtilitiesModelList(OwnObjectsMixin, ListView):
+    model = Utilities

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Utilities List  {% endblock %}
+
+{% block content %}
+<div class="container">
+<br><br>
+<h5>List of Utilities requiring assistance</h5>
+<ul class="list-group">
+    <!-- Iterate over object_list -->
+    {% for object in object_list %}
+    <!-- Display Objects -->
+      <li class="list-group-item">
+         <p>{{ object.utility_provider }}<br>
+             Acct no: {{ object.account_no }}<br>
+             Total Amount Due: {{ object.total_amount_due}} </p>
+
+      <a class="btn btn-primary btn-sm" role="button" href="/home/utils_update/{{ object.id }}/">Update Record</a>
+      <a class="btn btn-warning btn-sm" role="button"  href="/home/utils_delete/{{ object.id }}/">Delete Record</a>
+      </li>
+    <!-- If objet_list is empty  -->
+    {% empty %}
+      <li>No Utilities Information yet.</li>
+      <br><a href="../">Add Record</a>
+    {% endfor %}
+</ul>
+    <hr>
+    <a class="btn btn-outline-success btn-sm" role="button" href="../../home/utils_create">Add Utility Provider</a>
+    <a class="btn btn-success btn-sm"  href="/home/startapp/">Accept and Continue</a>
+</div>
+{% endblock %}
