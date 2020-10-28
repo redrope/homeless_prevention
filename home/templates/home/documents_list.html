@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Documents List  {% endblock %}
+
+{% block content %}
+<div class="container">
+<br><br>
+    <h5><b>List of Documents submitted</b></h5>
+<ul class="list-group">
+    <!-- Iterate over object_list -->
+    {% for object in object_list %}
+    <!-- Display Objects -->
+      <li class="list-group-item">
+         <p>Document Type: {{ object.doc_type }}<br>
+             Filename: {{ object.doc_file }}<br>
+             Status: {{ object.status}} </p>
+
+      <a class="btn btn-primary btn-sm" role="button" href="/home/docs_update/{{ object.id }}/">Update Record</a>
+      <a class="btn btn-warning btn-sm" role="button"  href="/home/docs_delete/{{ object.id }}/">Delete Record</a>
+      </li>
+    <!-- If object_list is empty  -->
+    {% empty %}
+      <li>No Documents Uploaded.</li>
+    {% endfor %}
+</ul>
+    <hr>
+    <a class="btn btn-outline-success btn-sm" role="button" href="../../home/docs_create">Add Document</a>
+    <a class="btn btn-success btn-sm"  href="/home/startapp/">Accept and Continue</a>
+</div>
+
+
+{% endblock %}

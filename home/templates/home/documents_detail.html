@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Document Detail {% endblock %}
+
+{% block content %}
+<br>
+<h4>Document Detail </h4>
+<hr>
+<div class="container">
+    <div class="text-primary">
+       <p>Document Type   :</p><p style="padding-left:100px; colo">{{ object.doc_type }}</p><br>
+       <p>Filename        :</p><p style="padding-left:100px; color:black;">{{ object.doc_filename }} </p><br>
+       <p>Status          :</p><p style="padding-left:100px; color:black;">{{ object.status }}</p><br>
+       <p>Date Uploaded   :</p><p style="padding-left:100px; color:black;">{{ object.date_uploaded }}</p><br>
+       <p>Comments        :</p><p style="padding-left:100px; color:black;">{{ object.comment }}</p><br>
+    </div>
+    <hr>
+    <a class="btn btn-primary btn-sm" role="button"  href="/home/docs_update/{{ object.id }}">Edit Record</a>
+    <a class="btn btn-success btn-sm" role="button"  href="/home/startapp/">Accept and Continue</a>
+</div>
+<br><br>
+{% endblock %}

@@ -11,35 +11,40 @@
    <!-- <p> This is the context from startapp view: {{ view.title }} {{ c_info.first_name }} and ID: {{ c_info.id }}</p> -->
 
 {% if contact_exists %}
-    <h6> Step 1. Contact Information Completed. <a class="btn btn-success btn-sm" role="button" href="../../home/contact_detail/{{ c_info.id }} ">View/Update</a></h6>
+    <h6> Step 1. Contact Information <b>COMPLETED</b>. <a class="btn btn-success btn-sm" role="button" href="../../home/contact_detail/{{ c_info.id }} ">View/Update</a></h6>
 {% else %}
     <h6>Step 1: Complete your contact information - <a class="btn btn-outline-success btn-sm" role="button" href="../../home/contact_create">Click Here</a></h6>
 {% endif %}
 <br>
 {% if hpapp_exists %}
-    <h6> Step 2. Application Information Completed. <a class="btn btn-success btn-sm" href="../../home/hpapp_detail/{{ hpapp_info.id }} "role="button">View/Update</a></h6>
+    <h6> Step 2. Application Information <b>COMPLETED</b>. <a class="btn btn-success btn-sm" href="../../home/hpapp_detail/{{ hpapp_info.id }} "role="button">View/Update</a></h6>
 {% else %}
     <h6>Step 2: Complete the Application Request Information <a class="btn btn-outline-success btn-sm" role="button" href="../../home/hpapp_create">Click Here</a></h6>
 {% endif %}
 <br>
 {% if housing_exists %}
-    <h6> Step 3. Housing Information Completed. <a class="btn btn-success btn-sm" role="button" href="../../home/hpapp_detail/{{ housing_info.id }} ">View/Update</a></h6>
+    <h6> Step 3. Housing Information <b>COMPLETED</b>. <a class="btn btn-success btn-sm" role="button" href="../../home/hpapp_detail/{{ housing_info.id }} ">View/Update</a></h6>
 {% else %}
     <h6>Step 3: If you are applying for Rent/Mortgage Assistance, <br>Complete the Housing Information to include Landlord or Mortgage Contacts<br>
     <a class="btn btn-outline-secondary btn-sm" role="button" href="../../home/housing_create">Click Here</a></h6>
 {% endif %}
 <br>
 {% if utils_exists %}
-    <h6> Step 4. Utilities Information Completed. <a class="btn btn-success btn-sm" role="button" href="../../home/utils_list/">View/Update</a></h6>
+    <h6> Step 4. Utilities Information <b>COMPLETED</b>. <a class="btn btn-success btn-sm" role="button" href="../../home/utils_list/">View/Update</a></h6>
 {% else %}
     <h6>Step 4: Complete the Utilities Assistance Section  <a class="btn btn-outline-success btn-sm" role="button" href="../../home/utils_create">Click Here</a></h6>
 {% endif %}
 <br>
-<h6>Step 5. Submit your documentation</h6>
-(Drivers License or Identification, Lease, Utility Bills, COVID-19 Crisis Documentation, etc.)<br>
+{% if utils_exists %}
+    <h6> Step 5. Documents <b>SUBMITTED</b> <a class="btn btn-success btn-sm" role="button" href="../../home/docs_list/">View/Update</a></h6>
+{% else %}
+    <h6>Step 5. Submit your documentation</h6>
+    (Drivers License or Identification, Lease, Utility Bills, COVID-19 Crisis Documentation, etc.)
+    <a class="btn btn-outline-success btn-sm" role="button" href="../../home/docs_create">Submit Documents</a></h6>
+{% endif %}
 <br>
-<h6>Step 6. Disclaimer: The information is correct and I agree to the terms.<br></h6>
-<a href="../../home/utils_create">[Submit Application]</a>
+<h6>Step 6. <b>Disclaimer:</b> The information is correct and I agree to the terms.<br></h6>
+<a href="../../home/submit_app">[Submit Application]</a>
 <br><br>
 
 

@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from .models import Contact, HPAPP, Housing, Utilities
+from .models import Contact, HPAPP, Housing, Utilities, Documents
 from .forms import ClientForm, HPAPPForm
 
 class OwnObjectsMixin():
@@ -357,3 +357,20 @@ class UtilitiesModelUpdate(OwnObjectsMixin, UpdateView):
 
 class UtilitiesModelList(OwnObjectsMixin, ListView):
     model = Utilities
+
+
+class DocumentsModelCreate(OwnObjectsMixin, CreateView):
+    model = Documents
+
+class DocumentsModelDetail(OwnObjectsMixin,DetailView):
+    model = Documents
+
+class DocumentsModelUpdate(OwnObjectsMixin, UpdateView):
+    model = Documents
+
+class DocumentsModelList(OwnObjectsMixin, ListView):
+    model = Documents
+
+class SubmitAppView(TemplateView):
+
+    template_name = 'home/submit_app.html'

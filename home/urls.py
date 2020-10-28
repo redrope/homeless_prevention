@@ -3,7 +3,8 @@ from . import views
 from django.contrib.auth.decorators import login_required
 from .views import DashboardView, StartAppView, ContactModelCreate, ContactModelList, ContactModelDetail, ContactModelUpdate, \
                    ContactModelDelete, HPAPPCreate, HPAPPDetail, HPAPPUpdate, FAQView, HousingModelCreate, HousingModelDetail, \
-                   HousingModelUpdate, HousingModelDelete,UtilitiesModelCreate, UtilitiesModelDetail, UtilitiesModelUpdate, UtilitiesModelList
+                   HousingModelUpdate, HousingModelDelete,UtilitiesModelCreate, UtilitiesModelDetail, UtilitiesModelUpdate, UtilitiesModelList, \
+                   DocumentsModelCreate, DocumentsModelDetail, DocumentsModelUpdate, DocumentsModelList, SubmitAppView
 
 
 app_name = 'home'
@@ -29,5 +30,10 @@ urlpatterns = [
     path('utils_detail/<pk>/', login_required(UtilitiesModelDetail.as_view()), name = 'utils_detail'),
     path('utils_update/<pk>/', login_required(UtilitiesModelUpdate.as_view()), name = 'utils_detail'),
     path('utils_list/', login_required(UtilitiesModelList.as_view()), name = 'utils_list'),
+    path('docs_create/', login_required(DocumentsModelCreate.as_view()), name = 'docs_create'),
+    path('docs_detail/<pk>/', login_required(DocumentsModelDetail.as_view()), name = 'docs_detail'),
+    path('docs_update/<pk>/', login_required(DocumentsModelUpdate.as_view()), name = 'docs_detail'),
+    path('docs_list/', login_required(DocumentsModelList.as_view()), name = 'docs_list'),
+    path('submit_app/', login_required(SubmitAppView.as_view()), name = 'submit_app'),
 
 ]

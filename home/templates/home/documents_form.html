@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Documents Upload / Review  {% endblock %}
+
+{% block content %}
+<div class="container">
+<br>
+<h4>Documents Information</h4>
+<p>Upload your documents and specify the type of document you are submitting. Add any comments about the document that we should be aware of.</p>
+<hr>
+<div class="container">
+
+    <form method="POST" enctype="multipart/form-data">
+
+        <!-- Security token -->
+        {% csrf_token %}
+
+        <!-- Using the formset -->
+        <table>{{ form.as_table }}</table>
+
+        <input type="submit" value="Submit">
+    </form>
+
+</div>
+</div>
+<br><br>
+{% endblock %}

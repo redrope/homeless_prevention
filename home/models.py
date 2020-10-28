@@ -68,7 +68,6 @@ class HPAPP(models.Model):
         elderly_num = models.IntegerField()
         income_type = models.CharField(max_length=200, choices=INCOME_TYPE)
         hh_income = models.DecimalField(max_digits=8, decimal_places=2)
-        #TODO Add Fields to upload paystubs or pay statements
         crisis_other = models.TextField()
         crisis_job_related = models.BooleanField()
         crisis_health_problems = models.BooleanField()
@@ -120,7 +119,7 @@ class Utilities(models.Model):
         account_no = models.CharField(max_length=200)
         name_on_acct = models.CharField(max_length=200)
         total_amount_due = models.DecimalField(default=0.00, max_digits=6, decimal_places=2)
-        #statement = models.FileField(upload_to=user_directory_path)
+        payment_due_date = models.DateField(null=True)
 
         def get_absolute_url(self):
             return reverse('home:utils_detail', args=[self.id])
@@ -130,3 +129,18 @@ class Utilities(models.Model):
 
 #TODO Add Model 'Documents' to upload all necessary documents
 
+class Documents(models.Model):
+    STATUS = [('NEW', 'NEW'), ('ACCEPTED', 'ACCEPTED'), ('RESUBMIT', 'RESUBMIT')]
+    DOC_TYPE = [('Lease Agreement', 'Lease Agreement'), ('Mortgage Statement', 'Mortgage Statement'), ('Electric Bill', 'Electric Bill'),
+                ('Water Bill', 'Water Bill'), ('Gas Bill', 'Gas Bill'), ('Identification', 'Identification'), ('Pay Stub', 'Pay Stub'),
+                ('Crisis/COVID Letter', 'Crisis/COVID Letter')]
+
+    username = models.ForeignKey(User, on_delete=models.CASCADE)
+    status = models.CharField(max_length=100, default='NEW', choices=STATUS)
+    date_uploaded = models.DateField()
+    doc_type = models.CharField(max_length=100, choices=DOC_TYPE)
+    doc_file = models.FileField(upload_to=user_directory_path)
+    comment = models.TextField(blank=True)
+
+    def __str__(self):
+        return f'{self.doc_type}: Filename: {self.doc_file}'
