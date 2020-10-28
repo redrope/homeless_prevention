@@ -146,4 +146,4 @@ ACCOUNT_ADAPTER = 'allauth.account.adapter.DefaultAccountAdapter'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 LOGIN_URL = '/accounts/login'
-LOGIN_REDIRECT_URL = 'home/'
+LOGIN_REDIRECT_URL = '../../home/'
