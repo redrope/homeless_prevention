@@ -7,18 +7,19 @@
 <div class="container">
 <br><br>
 <h5>Contact Details</h5>
-
-    <p class="text-primary">
+    <table class="table table-sm">
+       <tr><td>
        {{ object.first_name }} {{ object.middle_initial }} {{ object.last_name }}<br>
        {{ object.address1 }}
        {{ object.address2 }}<br>
        {{ object.city}}, {{ object.state }} {{ object.zipcode }}<br>
-    </p>
-    <p class="text-primary">Home Phone: {{ object.home_phone }}<br>
-       Mobile Phone: {{ object.mobile_phone }}<br>
-       Email: {{ object.email }}<br>
-       HP Username: {{ object.username }}
-    </p>
+       </td></tr>
+        <tr><td>Home Phone: <b>{{ object.home_phone }}</b><br>
+            Mobile Phone: <b>{{ object.mobile_phone }}</b><br>
+            Email: <b>{{ object.email }}</b><br>
+            HP Username: <b>{{ object.username }}</b>
+       </td></tr>
+    </table>
 <hr>
 
     <a class="btn btn-outline-success btn-sm" role="button" href="/home/contact_update/{{ object.id }}/">Edit Record</a>

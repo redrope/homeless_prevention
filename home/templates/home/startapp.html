@@ -23,7 +23,7 @@
 {% endif %}
 <br>
 {% if housing_exists %}
-    <h6> Step 3. Housing Information <b>COMPLETED</b>. <a class="btn btn-success btn-sm" role="button" href="../../home/hpapp_detail/{{ housing_info.id }} ">View/Update</a></h6>
+    <h6> Step 3. Housing Information <b>COMPLETED</b>. <a class="btn btn-success btn-sm" role="button" href="../../home/housing_detail/{{ housing_info.id }} ">View/Update</a></h6>
 {% else %}
     <h6>Step 3: If you are applying for Rent/Mortgage Assistance, <br>Complete the Housing Information to include Landlord or Mortgage Contacts<br>
     <a class="btn btn-outline-secondary btn-sm" role="button" href="../../home/housing_create">Click Here</a></h6>
@@ -35,13 +35,14 @@
     <h6>Step 4: Complete the Utilities Assistance Section  <a class="btn btn-outline-success btn-sm" role="button" href="../../home/utils_create">Click Here</a></h6>
 {% endif %}
 <br>
-{% if utils_exists %}
+{% if docs_exists %}
     <h6> Step 5. Documents <b>SUBMITTED</b> <a class="btn btn-success btn-sm" role="button" href="../../home/docs_list/">View/Update</a></h6>
 {% else %}
     <h6>Step 5. Submit your documentation</h6>
     (Drivers License or Identification, Lease, Utility Bills, COVID-19 Crisis Documentation, etc.)
     <a class="btn btn-outline-success btn-sm" role="button" href="../../home/docs_create">Submit Documents</a></h6>
 {% endif %}
+<br>
 <br>
 <h6>Step 6. <b>Disclaimer:</b> The information is correct and I agree to the terms.<br></h6>
 <a href="../../home/submit_app">[Submit Application]</a>

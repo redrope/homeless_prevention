@@ -1,38 +1,57 @@
-from django import forms
+from django.forms import ModelForm
 from .models import Contact, HPAPP, Housing, Utilities
 
 #Start of ClientForm
-class ClientForm(forms.ModelForm):
+class ClientForm(ModelForm):
 
     class Meta:
         model = Contact
 
         fields = [
             "first_name", "middle_initial", "last_name",
-            "home_phone",
-            "mobile_phone",
-            "email",
             "address1",
             "address2",
             "city",
             "state",
             "zipcode",
+            "home_phone",
+            "mobile_phone",
+            "email",
             "DOB",
             "veteran",
 
         ]
 
         labels = {
+                'first_name':'First Name ',
+                'middle_initial': 'Middle Initial ',
+                'last_name': 'Last Name ',
+                'address1': 'Address',
                 'address2':'Apartment or Unit Number',
                 'email':'Email Address',
                 'DOB':'Date of Birth',
                 'veteran':'Select if you are a Veteran',
 
-
         }
+
+        def form_valid(self, form):
+            # assign Contact username with current logged in User
+            form.save(commit=False)
+            form.instance.username = self.request.user
+            form.save()
+
+            return super(ClientForm, self).form_valid(form)
+
+            #self.object = form.save(commit=False)
+            #self.object.username = self.request.user
+            #self.object.save()
+
+            #return super(ContactModelCreate, self).form_valid(form)
+
+
 #End of ClientForm
 
-class HPAPPForm(forms.ModelForm):
+class HPAPPForm(ModelForm):
         class Meta:
             model = HPAPP
 
@@ -75,7 +94,7 @@ class HPAPPForm(forms.ModelForm):
             }
 
 
-class HousingForm(forms.ModelForm):
+class HousingForm(ModelForm):
         class Meta:
             model = Housing
 

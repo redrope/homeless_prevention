@@ -5,6 +5,7 @@ from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
+from django.utils import timezone
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -55,6 +56,11 @@ class StartAppView(TemplateView):
         else:
             context['utils_exists'] = False
 
+        if Documents.objects.filter(username=self.request.user).exists():
+            context['docs_exists'] = True
+        else:
+            context['docs_exists'] = False
+
         return context
 
 
@@ -102,6 +108,7 @@ class FAQView(TemplateView):
 class ContactModelCreate(CreateView):
     #added reverse URL to TestModel in models.py
     model = Contact
+    #form_class = ClientForm
 
     fields = [
         # "username",
@@ -121,11 +128,12 @@ class ContactModelCreate(CreateView):
     ]
 
     def form_valid(self, form):
-        #assign Contact username with current logged in User
-        form.instance.username = self.request.user
-        # form.save()
+          #assign Contact username with current logged in User
+          form.instance.username = self.request.user
+          # form.save()
+          return super(ContactModelCreate, self).form_valid(form)
 
-        return super(ContactModelCreate, self).form_valid(form)
+
 
 #@login_required
 class ContactModelList(OwnObjectsMixin, ListView):
@@ -147,7 +155,10 @@ class ContactModelDetail(DetailView):
 
 class ContactModelUpdate(UpdateView):
     model = Contact
+    form_class = ClientForm
+    #template_name = "home/contact_form.html"
 
+""" Added ClientForm in forms.py to specify fields and labels.
     #Specify the fields
     fields = [
         "first_name", "middle_initial", "last_name",
@@ -162,6 +173,8 @@ class ContactModelUpdate(UpdateView):
         "DOB",
         "veteran",
     ]
+"""
+
     #can specify success URL to redirect after successful Update
     #success_url = "/"
     #redirect added to Contact Model in models.py
@@ -299,18 +312,26 @@ class HousingModelList(ListView):
     def get_queryset(self):
         return self.model.objects.filter(username=self.request.user)
 
-class HousingModelUpdate(UpdateView):
+class HousingModelUpdate(OwnObjectsMixin, UpdateView):
     model = Housing
 
-    #Specify the fields
-    #fields = []
+    fields = [
+        'll_or_mortage_co',
+        'contact_person',
+        'contact_phone',
+        'mailing_address1',
+        'mailing_address2',
+        'city',
+        'state',
+        'zipcode',
+        'monthly_payment_amount',
+        'current_amount_due',
+    ]
 
-
-    #can specify success URL to redirect after successful Update
     #success_url = "/"
     #redirect added to Contact Model in models.py
 
-class HousingModelDelete(DeleteView):
+class HousingModelDelete(OwnObjectsMixin, DeleteView):
     model = Housing
 
     def get_queryset(self):
@@ -351,7 +372,7 @@ class UtilitiesModelUpdate(OwnObjectsMixin, UpdateView):
         'account_no',
         'name_on_acct',
         'total_amount_due',
-        'statement',
+        'payment_due_date',
     ]
     success_url = reverse_lazy('home:utils_list')
 
@@ -361,15 +382,41 @@ class UtilitiesModelList(OwnObjectsMixin, ListView):
 
 class DocumentsModelCreate(OwnObjectsMixin, CreateView):
     model = Documents
+    fields = [
+        'doc_type',
+        'doc_file',
+        'comment',
+
+    ]
+
+    def form_valid(self, form):
+        #assign Contact username with current logged in User
+        form.instance.username = self.request.user
+        form.instance.date_uploaded = timezone.now()
+        form.instance.status = 'NEW'
+        # form.save()
+
+        return super(DocumentsModelCreate, self).form_valid(form)
 
 class DocumentsModelDetail(OwnObjectsMixin,DetailView):
     model = Documents
 
 class DocumentsModelUpdate(OwnObjectsMixin, UpdateView):
     model = Documents
+    fields = [
+        'doc_type',
+        'doc_file',
+        'comment',
+    ]
+    success_url = reverse_lazy('home:docs_list')
 
 class DocumentsModelList(OwnObjectsMixin, ListView):
     model = Documents
+
+class DocumentsModelDelete(OwnObjectsMixin, DeleteView):
+    model = Documents
+
+    success_url = reverse_lazy('home:docs_list')
 
 class SubmitAppView(TemplateView):
 

@@ -14,7 +14,8 @@
       <li class="list-group-item">
          <p>Document Type: {{ object.doc_type }}<br>
              Filename: {{ object.doc_file }}<br>
-             Status: {{ object.status}} </p>
+             Status: {{ object.status}} <br>
+             Comments: {{ object.comment }}</p>
 
       <a class="btn btn-primary btn-sm" role="button" href="/home/docs_update/{{ object.id }}/">Update Record</a>
       <a class="btn btn-warning btn-sm" role="button"  href="/home/docs_delete/{{ object.id }}/">Delete Record</a>
@@ -27,6 +28,7 @@
     <hr>
     <a class="btn btn-outline-success btn-sm" role="button" href="../../home/docs_create">Add Document</a>
     <a class="btn btn-success btn-sm"  href="/home/startapp/">Accept and Continue</a>
+    <br><br>
 </div>
 
 

@@ -119,7 +119,7 @@ class Utilities(models.Model):
         account_no = models.CharField(max_length=200)
         name_on_acct = models.CharField(max_length=200)
         total_amount_due = models.DecimalField(default=0.00, max_digits=6, decimal_places=2)
-        payment_due_date = models.DateField(null=True)
+        payment_due_date = models.DateField(auto_now_add=True)
 
         def get_absolute_url(self):
             return reverse('home:utils_detail', args=[self.id])
@@ -141,6 +141,9 @@ class Documents(models.Model):
     doc_type = models.CharField(max_length=100, choices=DOC_TYPE)
     doc_file = models.FileField(upload_to=user_directory_path)
     comment = models.TextField(blank=True)
+
+    def get_absolute_url(self):
+        return reverse('home:docs_detail', args=[self.id])
 
     def __str__(self):
         return f'{self.doc_type}: Filename: {self.doc_file}'
