@@ -349,7 +349,7 @@ class UtilitiesModelCreate(CreateView):
     'account_no',
     'name_on_acct',
     'total_amount_due',
-    'statement',
+    'payment_due_date',
     ]
 
     def form_valid(self, form):

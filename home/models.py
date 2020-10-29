@@ -119,7 +119,7 @@ class Utilities(models.Model):
         account_no = models.CharField(max_length=200)
         name_on_acct = models.CharField(max_length=200)
         total_amount_due = models.DecimalField(default=0.00, max_digits=6, decimal_places=2)
-        payment_due_date = models.DateField(auto_now_add=True)
+        payment_due_date = models.DateField()
 
         def get_absolute_url(self):
             return reverse('home:utils_detail', args=[self.id])
